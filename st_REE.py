@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib as plt
 import plotly.express as px
-import folium 
+#import folium 
 
 
 #Cargamos los DataFrames necesarios para el proyecto.
