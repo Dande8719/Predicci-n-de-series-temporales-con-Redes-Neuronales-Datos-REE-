@@ -3,6 +3,9 @@
 import streamlit as st
 import pandas as pd
 import matplotlib as plt
+import plotly.express as px
+import folium 
+
 
 #Cargamos los DataFrames necesarios para el proyecto.
 
@@ -22,8 +25,8 @@ def main():
     st.subheader("Usamos estos modelos para predecir diferentes variables del sistema electrico español")
     
     #Introcucimos imagenes principales para la página.
-    # st.image("Imgn_REE.JPG", width=500)
-    # st.image("Imgn_REE_2.JPG", width=300)
+    st.image("Imgn_REE.JPG", width=500)
+    st.image("Imgn_REE_2.JPG", width=300)
 
     #Creamos un MENÚ lateral para selecionar las distintal paginas del proyecto.
     st.sidebar.header('Menú')
@@ -59,10 +62,46 @@ def main():
             st.dataframe(df_demanda_nacional)
             st.dataframe(df_demanda_comunidades)
 
-        #Texto
-        st.write('Texto modelo demanda, mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm n\
-                 mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm n\
-                 mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
+        # Texto
+        st.write('Obtenemos los datos de demanda eléctrica nacional de la API de Red eléctrica de España, los n\
+                 pasamos a GW/h y obtenemos una serie temporal de datos de 11 años de energía eléctrica n\
+                 consumida en España, valores diarios.')
+        
+        # Imprimimos un grafico linal con plotly exprexx de demanda Nacional
+        fig1 = px.line(df_demanda_nacional, 
+                       x="Fecha", 
+                       y="Energia Consumida Mw/h", 
+                       title="Demanda Eléctrica Nacional")
+        st.plotly_chart(figure_or_data = fig1, use_container_width = True)
+        
+        # Comentamos texto para demanda por comunidades 
+        st.write('También obtenemos los datos de demanda de energía por comunidades autónomas.')
+
+        # #Preparamos los dataframes para usar folium en streamlit.
+        # df_medias = df_demanda_comunidades.drop('Fecha', axis='columns')
+        # media = df_medias.mean()
+        # df_medias = df_medias.append(media, ignore_index=True) 
+        # df_medias.drop(df_medias.index[0:11], axis=0, inplace=True)
+        # df_comunidades = df_medias.T
+        # df_comunidades.reset_index(inplace=True)
+        # df_comunidades.rename(columns={"index":"Comunidades", 11:"Demanda media"}, inplace=True)
+
+        # # Imprimimos un grafico con folium para la demanda por comunidades.
+        # def create_choropleth_map():
+        #     # Tu código de creación de Choropleth map
+        #     spain_map = folium.Map(location=[40.4637, -3.7492], zoom_start=6)
+        #     folium.Choropleth(
+        #         geo_data=df_comunidades,
+        #         legend_name="Demanda media de energía 2012-2022",
+        #         fill_color="OrRd",
+        #         data=df_medias,
+        #         columns=["Comunidades", "Demanda media"],
+        #         key_on="feature.properties.name"
+        #     ).add_to(spain_map)
+        #     return spain_map
+        
+        # map = create_choropleth_map()
+        # folium_static(map)
 
     #################################### GENERACIÓN ################################################
     ################################################################################################
@@ -100,7 +139,7 @@ def main():
     ###############################################################################################    
 
     #tamaño_deseado_im_HaB = (300, 200) 
-    # st.image("Imgn_HaB.JPG", width=80)
+    st.image("Imgn_HaB.JPG", width=80)
     st.text('Autores del trabajo: Aitor, Eva, Adrian y Daniel Lema           Tutor: Daniel Tummler')
     
     
