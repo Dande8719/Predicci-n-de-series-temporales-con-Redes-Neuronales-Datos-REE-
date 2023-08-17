@@ -103,7 +103,7 @@ def main():
     # st.image("Imgn_HaB.JPG", width=80)
     st.text('Autores del trabajo: Aitor, Eva, Adrian y Daniel Lema           Tutor: Daniel Tummler')
     
-
+    
     ############################# CERRAMOS ESTRUCTURA DEL MODELO ########################
     ############################################################################################
     ############################################################################################
