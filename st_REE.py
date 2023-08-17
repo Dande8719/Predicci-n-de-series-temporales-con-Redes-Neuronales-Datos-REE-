@@ -22,8 +22,8 @@ def main():
     st.subheader("Usamos estos modelos para predecir diferentes variables del sistema electrico español")
     
     #Introcucimos imagenes principales para la página.
-    st.image("Imgn_REE.JPG", width=500)
-    st.image("Imgn_REE_2.JPG", width=300)
+    # st.image("Imgn_REE.JPG", width=500)
+    # st.image("Imgn_REE_2.JPG", width=300)
 
     #Creamos un MENÚ lateral para selecionar las distintal paginas del proyecto.
     st.sidebar.header('Menú')
@@ -100,7 +100,7 @@ def main():
     ###############################################################################################    
 
     #tamaño_deseado_im_HaB = (300, 200) 
-    st.image("Imgn_HaB.JPG", width=80)
+    # st.image("Imgn_HaB.JPG", width=80)
     st.text('Autores del trabajo: Aitor, Eva, Adrian y Daniel Lema           Tutor: Daniel Tummler')
     
 
