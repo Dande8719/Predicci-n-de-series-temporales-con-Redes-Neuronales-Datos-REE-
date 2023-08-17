@@ -4,15 +4,17 @@ import streamlit as st
 import pandas as pd
 import matplotlib as plt
 import plotly.express as px
-#import folium 
-
+import folium 
+from urllib.request import urlopen
+import json
+from streamlit_folium import st_folium
 
 #Cargamos los DataFrames necesarios para el proyecto.
 
 df_demanda_nacional = pd.read_csv('demanda_nacional.csv')
 df_demanda_comunidades = pd.read_csv('demanda_comunidades.csv')
 df_Emisionas_diarias = pd.read_csv('EmisionesDiarias.csv')
-df_Gener_dia_ren_no_ren= pd.read_csv('EmisionesDiarias.csv')
+df_Gener_dia_ren_no_ren= pd.read_csv('GeneracionDiariaRenNoRen.csv')
 df_intercambio= pd.read_csv('intercambio.csv')
 df_gen_dia_x_tecno= pd.read_csv('GeneracionDiariaXTecnologia.csv')
 
@@ -22,11 +24,14 @@ def main():
 
     #Definimos un tÍtulo general para la página.
     st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES CON REDES NEURONALES")
-    st.subheader("Usamos estos modelos para predecir diferentes variables del sistema electrico español")
-    
+    st.markdown(body = '<div style="text-align: justify; font-size: 20px; color:Gray;">Usamos estos modelos para predecir diferentes variables del sistema electrico español</div>',
+                unsafe_allow_html = True)
+    #st.markdown("#### Usamos estos modelos para predecir diferentes variables del sistema electrico español")
+    col1, col2, col3 = st.columns([1, 6, 1])
+    col4, col5, col6 = st.columns([2, 4, 2])
     #Introcucimos imagenes principales para la página.
-    st.image("Imgn_REE.JPG", width=500)
-    st.image("Imgn_REE_2.JPG", width=300)
+    col2.image("Imgn_REE.JPG", use_column_width = True,)
+    col5.image("Imgn_REE_2.JPG", use_column_width = True)
 
     #Creamos un MENÚ lateral para selecionar las distintal paginas del proyecto.
     st.sidebar.header('Menú')
@@ -38,7 +43,7 @@ def main():
 
     if opcion == 'INTRODUCCIÓN':
         st.title('INTRODUCCIÓN')
-        st.write('El objeto del siguiente proyecto es usar los diversos datos obtenidos de la API de red n\
+        st.write('<div style="text-align: justify;">El objeto del siguiente proyecto es usar los diversos datos obtenidos de la API de red n\
                 eléctrica para predecir datos futuros usando redes neuronales. n\
                 Los datos actuales de demanda, generación, precios e intercambio nos servirán para n\
                 entrenar un modelo de redes neuronales que nos permitirá predecir estas variables en un n\
@@ -48,7 +53,7 @@ def main():
                 En esta presentación web de Streamlit podréis navegar en el menú y ver como se realiza n\
                 cada modelo y los resultados obtenidos del mismo, como norma general obtendremos un n\
                 gráfico de predicción y unos valores de precisión del modelo que nos dirán cuán bueno es el n\
-                mismo.')
+                mismo.</div>', unsafe_allow_html=True)
         
     #################################### MODELO DEMANDA ############################################
     ################################################################################################
@@ -77,31 +82,31 @@ def main():
         # Comentamos texto para demanda por comunidades 
         st.write('También obtenemos los datos de demanda de energía por comunidades autónomas.')
 
-        # #Preparamos los dataframes para usar folium en streamlit.
-        # df_medias = df_demanda_comunidades.drop('Fecha', axis='columns')
-        # media = df_medias.mean()
-        # df_medias = df_medias.append(media, ignore_index=True) 
-        # df_medias.drop(df_medias.index[0:11], axis=0, inplace=True)
-        # df_comunidades = df_medias.T
-        # df_comunidades.reset_index(inplace=True)
-        # df_comunidades.rename(columns={"index":"Comunidades", 11:"Demanda media"}, inplace=True)
+        #Preparamos los dataframes para usar folium en streamlit.
+        df_medias = df_demanda_comunidades.drop('Fecha',axis=1)
+        media = df_medias.mean()
+        df_com = pd.DataFrame(media).reset_index()
+        df_com.columns = ["Comunidades", "media"]
+       
 
-        # # Imprimimos un grafico con folium para la demanda por comunidades.
-        # def create_choropleth_map():
-        #     # Tu código de creación de Choropleth map
-        #     spain_map = folium.Map(location=[40.4637, -3.7492], zoom_start=6)
-        #     folium.Choropleth(
-        #         geo_data=df_comunidades,
-        #         legend_name="Demanda media de energía 2012-2022",
-        #         fill_color="OrRd",
-        #         data=df_medias,
-        #         columns=["Comunidades", "Demanda media"],
-        #         key_on="feature.properties.name"
-        #     ).add_to(spain_map)
-        #     return spain_map
+        # Imprimimos un grafico con folium para la demanda por comunidades.
+        def create_choropleth_map():
+            with urlopen("https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/spain-communities.geojson") as response:
+                comunidades=json.load(response)
+            # Tu código de creación de Choropleth map
+            spain_map = folium.Map(location=[40.4637, -3.7492], zoom_start=6)
+            folium.Choropleth(
+                geo_data=comunidades,
+                legend_name="Demanda media de energía 2012-2022",
+                fill_color="OrRd",
+                data=df_com,
+                columns=["Comunidades", "media"],
+                key_on="feature.properties.name"
+            ).add_to(spain_map)
+            return spain_map
         
-        # map = create_choropleth_map()
-        # folium_static(map)
+        map = create_choropleth_map()
+        st_folium(map)
 
     #################################### GENERACIÓN ################################################
     ################################################################################################
@@ -139,6 +144,7 @@ def main():
     ###############################################################################################    
 
     #tamaño_deseado_im_HaB = (300, 200) 
+    st.markdown("***")
     st.image("Imgn_HaB.JPG", width=80)
     st.text('Autores del trabajo: Aitor, Eva, Adrian y Daniel Lema           Tutor: Daniel Tummler')
     
