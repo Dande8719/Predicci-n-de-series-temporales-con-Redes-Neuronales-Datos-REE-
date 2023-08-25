@@ -20,7 +20,7 @@ import requests
 import json
 import numpy as np
 
-df_demanda_nacional = pd.read_csv('DF\demanda_nacional.csv')
+df_demanda_nacional = pd.read_csv('DF/demanda_nacional.csv')
 
 
 def Modelos():
