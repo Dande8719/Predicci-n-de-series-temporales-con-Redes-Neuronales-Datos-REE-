@@ -29,7 +29,7 @@ df_ipc = pd.read_excel("DF\IPC energía - Eurostat.xlsx", sheet_name = "Sheet 2"
 def main():
 
     # Definimos un tÍtulo general para la página.
-    st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES CON REDES NEURONALES")
+    st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES")
     # st.markdown(body = '<div style="text-align: justify; font-size: 15px; color:Gray;">Usamos estos modelos para predecir diferentes variables del sistema electrico español</div>',
     #             unsafe_allow_html = True)
     st.markdown("##### Usamos distintos modelos para predecir diferentes variables del sistema electrico español")

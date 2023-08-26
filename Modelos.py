@@ -26,7 +26,7 @@ df_demanda_nacional = pd.read_csv('DF\demanda_nacional.csv')
 def Modelos():
     st.title('MODELOS DE PREDICCIÓN')
         #Texto
-    st.write('A Continuación seleccionamos entre las distintas variables a predecir para ver los resultados  n\
+    st.write('A Continuación seleccionamos entre las distintas variables a predecir para ver los resultados  \
                   de los modelos que usamos para la predicción de las mismas.')
 
     opcion = st.selectbox('Seleccione una opción', ['DEMANDA','PRECIOS'])
@@ -35,9 +35,10 @@ def Modelos():
     if opcion == 'DEMANDA':
         st.title('DEMANDA')
 
-        st.write('Obtenemos los datos de demanda eléctrica nacional de la API de Red eléctrica de España, los n\
-                 pasamos a GW/h y obtenemos una serie temporal de datos de 11 años de energía eléctrica n\
-                 consumida en España, valores diarios.') 
+        st.write('Obtenemos los datos de demanda eléctrica nacional de la API de Red eléctrica de España, los \
+                 pasamos a GW/h y obtenemos una serie temporal de datos de 11 años de energía eléctrica \
+                 consumida en España con valores diarios. Aqui podemos ver la predición de valores futuros con distintos modelos, \
+                 Hagan click por favor en los botones que ven abajo para ver el resultado de los mismos') 
         col1, col2, col3,COL4 = st.columns([1, 1, 1, 1])
 
             #Creamos una serie de botones para seleccionar el tipo de modelo a aplicar.
@@ -59,13 +60,13 @@ def Modelos():
     if opcion == 'PRECIOS':
         st.title('PRECIOS')
 
-        st.write('Obtenemos los datos de demanda eléctrica nacional de la API de Red eléctrica de España, los n\
-                 pasamos a GW/h y obtenemos una serie temporal de datos de 11 años de energía eléctrica n\
-                 consumida en España, valores diarios.')
+        st.write('Obtenemos los datos de precios del mercado electrico de la API de Red eléctrica de España \
+                 y obtenemos una serie temporal de datos de 8 años de precios \
+                 del mercado electrico en España, valores diarios en €/Mwh.')
             #Creamos una serie de botones para seleccionar el tipo de modelo a aplicar.
         col1, col2, col3 = st.columns([1, 1, 1])
         if col1.button("Modelo Pycaret", key="Pycaret"):
-                 st.write("Usamos el Modelo Pycam para predecir series temporales .......")
+                 st.write("Usamos el Modelo Pycaret para predecir series temporales .......")
 
         if col2.button("Modelo Prophet", key="Modelo prophet"):
                  st.write("¡Has hecho clic en el Modelo Prophet!")

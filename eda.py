@@ -12,7 +12,7 @@ def eda(df_Gener_dia_ren_no_ren,
     # Texto Sobre los distintos análisis exploratorios de los datos.
     st.write('A continuación pueden escoger entre los distintos analisis exploratorios de datos \
                 empezando por la generación de energía a nivel nacional, emisiones, demanda y acabando \
-                por el intercambio de energía.')
+                por los precios de la energía')
 
     #st.selectbox.header('Menú Modelos')
     opcion = st.selectbox('Seleccione una opción', ['GENERACIÓN', 'EMISIONES', 'DEMANDA','PRECIOS'])
@@ -69,6 +69,9 @@ def eda(df_Gener_dia_ren_no_ren,
 
         fig4 = px.line(data_frame = df_demanda_nacional, x = "Fecha", y = "Energia Consumida Mw/h")
         st.plotly_chart(fig4)
+
+        st.write('Observamos que la demanda eléctrica en las distintas comunidades está muy relacionada con la población, \
+                las comunidades mas pobladas son las que mas energía demandan. (EJ: Andalucía, Cataluña y Madrid.) ')
 
         X1=dict(df_demanda_comunidades.sum()[2:]).values()
         #   st.write(X1)
