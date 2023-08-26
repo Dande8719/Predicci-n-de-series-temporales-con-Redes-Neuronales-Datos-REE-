@@ -15,14 +15,14 @@ from Autores import Autores
 #from pycaret.time_series import TSForecastingExperiment 
 # Cargamos los DataFrames necesarios para el proyecto. Tengo todos los del EDA.
 
-df_precios = pd.read_csv("DF\Precios por mes.csv")
-df_demanda_nacional = pd.read_csv('DF\demanda_nacional.csv')
-df_demanda_comunidades = pd.read_csv('DF\demanda_comunidades.csv')
-df_Emisiones_diarias = pd.read_csv('DF\EmisionesDiarias.csv')
-df_Gener_dia_ren_no_ren= pd.read_csv('DF\GeneracionDiariaRenNoRen.csv')
-df_intercambio= pd.read_csv('DF\intercambio.csv')
-df_gen_dia_x_tecno= pd.read_csv('DF\GeneracionDiariaXTecnologia.csv')
-df_ipc = pd.read_excel("DF\IPC energía - Eurostat.xlsx", sheet_name = "Sheet 2")
+df_precios = pd.read_csv("DF/Precios por mes.csv")
+df_demanda_nacional = pd.read_csv('DF/demanda_nacional.csv')
+df_demanda_comunidades = pd.read_csv('DF/demanda_comunidades.csv')
+df_Emisiones_diarias = pd.read_csv('DF/EmisionesDiarias.csv')
+df_Gener_dia_ren_no_ren= pd.read_csv('DF/GeneracionDiariaRenNoRen.csv')
+df_intercambio= pd.read_csv('DF/intercambio.csv')
+df_gen_dia_x_tecno= pd.read_csv('DF/GeneracionDiariaXTecnologia.csv')
+df_ipc = pd.read_excel("DF/IPC energía - Eurostat.xlsx", sheet_name = "Sheet 2")
 
 #Creamos el marco de trabajo de Streamlit.
 
