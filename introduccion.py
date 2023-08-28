@@ -1,7 +1,11 @@
 import streamlit as st
+from streamlit_lottie import st_lottie
+import requests
 
 def introduccion():
     st.title('INTRODUCCIÓN')
+    st_lottie(requests.get("https://lottie.host/8aa6eb40-cc19-4c8a-82e8-65abc765569a/VlL8VDrMsa.json").json(), height=250, key="Into1")
+    
     st.write('<div style="text-align: justify;">El objeto del siguiente proyecto es usar los diversos datos obtenidos de la API de red \
             eléctrica para predecir datos futuros usando distintos modelos (SKForecast, Redes Neuronales, Prophet y Pycaret). \
             Los datos actuales de demanda y precios nos servirán para \
@@ -14,13 +18,8 @@ def introduccion():
             mismo \
                 \
                 .</div>', unsafe_allow_html=True)
-    st.markdown("***")
-    col1, col2 = st.columns([2, 2])
-    col3, col4 = st.columns([2, 2])
-    col1.image("Foto/Prophet.JPG", use_column_width = True,)
-    col2.image("Foto/Redes_Neuronales.JPG", use_column_width = True,)
-    col3.image("Foto/Foto_M_Pycaret.JPG", use_column_width = True,)
-    col4.image("Foto/SKForecast.JPG", use_column_width = True,)
+    
+    
 
 if __name__ == "__introduccion__":
     introduccion()

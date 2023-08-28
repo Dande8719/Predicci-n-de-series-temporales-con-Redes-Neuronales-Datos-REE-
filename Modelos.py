@@ -19,15 +19,20 @@ from keras.models import load_model
 import requests
 import json
 import numpy as np
+from streamlit_lottie import st_lottie
+import requests
 
-df_demanda_nacional = pd.read_csv('DF/demanda_nacional.csv')
+df_demanda_nacional = pd.read_csv('DF\demanda_nacional.csv')
 
 
 def Modelos():
+
     st.title('MODELOS DE PREDICCIÓN')
         #Texto
     st.write('A Continuación seleccionamos entre las distintas variables a predecir para ver los resultados  \
                   de los modelos que usamos para la predicción de las mismas.')
+
+    st_lottie(requests.get("https://lottie.host/de6e98d2-b4a7-45a7-b610-ddd71c68ba1f/GdIFdrWP8O.json").json(), height=250, key="Modelos")
 
     opcion = st.selectbox('Seleccione una opción', ['DEMANDA','PRECIOS'])
 

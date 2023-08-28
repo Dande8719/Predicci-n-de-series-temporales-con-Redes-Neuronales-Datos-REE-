@@ -1,5 +1,7 @@
 import streamlit as st
 import plotly.express as px
+from streamlit_lottie import st_lottie
+import requests
 
 def eda(df_Gener_dia_ren_no_ren,
         df_Emisiones_diarias,
@@ -13,6 +15,8 @@ def eda(df_Gener_dia_ren_no_ren,
     st.write('A continuación pueden escoger entre los distintos analisis exploratorios de datos \
                 empezando por la generación de energía a nivel nacional, emisiones, demanda y acabando \
                 por los precios de la energía')
+    
+    st_lottie(requests.get("https://lottie.host/c16d2351-863a-48a7-b143-735071d01f92/JQ2hcUD9HM.json").json(), height=250, key="model")
 
     #st.selectbox.header('Menú Modelos')
     opcion = st.selectbox('Seleccione una opción', ['GENERACIÓN', 'EMISIONES', 'DEMANDA','PRECIOS'])
