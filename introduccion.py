@@ -3,6 +3,10 @@ from streamlit_lottie import st_lottie
 import requests
 
 def introduccion():
+    # Definimos un tÍtulo y subtítulo general para la página.
+    st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES")
+    st.markdown("##### Usamos distintos modelos para predecir diferentes variables del sistema electrico español")
+
     st.title('INTRODUCCIÓN')
     st_lottie(requests.get("https://lottie.host/8aa6eb40-cc19-4c8a-82e8-65abc765569a/VlL8VDrMsa.json").json(), height=250, key="Into1")
     
