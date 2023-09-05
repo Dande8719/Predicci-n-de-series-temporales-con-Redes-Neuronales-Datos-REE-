@@ -6,6 +6,7 @@ import plotly.express as px
 from streamlit_lottie import st_lottie  #Libreria necesaria para trabajar con lotties archivos json animados
 import requests
 from streamlit_option_menu import option_menu    #Libreria necesaria para trabajar con lotties archivos json animados
+from datetime import date,datetime
 
 #Importamos funciones de codigo en otros archivos
 from introduccion import introduccion
@@ -15,14 +16,11 @@ from Autores import Autores
 
 # Cargamos los DataFrames necesarios para el proyecto. Tengo todos los del EDA.
 
-#df = pd.read_csv('DF\DF_REE.csv')
+
 df_precios = pd.read_csv("DF\Precios por mes.csv")
 df_demanda_nacional = pd.read_csv('DF\demanda_nacional.csv')
 df_demanda_comunidades = pd.read_csv('DF\demanda_comunidades.csv')
-#df_Emisiones_diarias = pd.read_csv('DF\EmisionesDiarias.csv')
-#df_Gener_dia_ren_no_ren= pd.read_csv('DF\GeneracionDiariaRenNoRen.csv')
 df_intercambio= pd.read_csv('DF\intercambio.csv')
-#df_gen_dia_x_tecno= pd.read_csv('DF\GeneracionDiariaXTecnologia.csv')
 df_ipc = pd.read_excel("DF\IPC energía - Eurostat.xlsx", sheet_name = "Sheet 2")
 df_emis_plt = pd.read_csv('DF\emis_plt_eda.csv')
 df_gen_plt_eda = pd.read_csv('DF\gen_plt_eda.csv')
@@ -39,10 +37,6 @@ def main():
     page_title="MODELOS REE",
     page_icon="⚡️",
     )
-
-    # # Definimos un tÍtulo y subtítulo general para la página.
-    # st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES")
-    # st.markdown("##### Usamos distintos modelos para predecir diferentes variables del sistema electrico español")
 
     # Creamos un MENÚ.
     opcion=st.sidebar.selectbox("Menú", 
@@ -92,16 +86,48 @@ def main():
                                  \
                                 </div>', unsafe_allow_html=True) 
         
+        
+        df = df_pred_dem
+        # from_ = st.slider('Desde', fecha_inicio, fecha_fin, fecha_fin	, key = 'generación_from')
+        # to = st.slider('Hasta', from_, fecha_fin, fecha_fin, key = 'generación_to')
+
+        fecha_min=datetime.strptime(df["Fechas"].min(),"%Y-%m-%d").date()
+        fecha_max=datetime.strptime(df["Fechas"].max(),"%Y-%m-%d").date()
+        # st.write(fecha_min)
+        # st.write(fecha_max)
+        fecha_inicio = st.date_input("Fecha inicio", value = fecha_min,  min_value = fecha_min, max_value = fecha_max)
+        fecha_fin = st.date_input("Fecha fin", value = fecha_max, min_value = fecha_min, max_value = fecha_max)
+
+        df["Fechas"] = df["Fechas"].apply(lambda x : datetime.strptime(x,"%Y-%m-%d").date())
+        demanda= df[(df["Fechas"] >= fecha_inicio) & (df["Fechas"] <= fecha_fin)]
+
+
+        
         # Gráficas predicciones.
         # Demanda
-        fig24=px.line(data_frame = df_pred_dem,
+        fig24=px.line(data_frame = demanda ,
                     x = "Fechas",
                     y =  ["Predicciones"],  
                     title = "Predicción demanda energética nacional Redes Neuronales")    
 
         st.plotly_chart(figure_or_data = fig24, use_container_width = True)
+
         #Precios
-        fig25=px.line(data_frame = df_pred_prec,
+
+        df1 = df_pred_prec
+        
+        fecha_min1=datetime.strptime(df1["Fecha"].min(),"%Y-%m-%d").date()
+        fecha_max1=datetime.strptime(df1["Fecha"].max(),"%Y-%m-%d").date()
+        # st.write(fecha_min)
+        # st.write(fecha_max)
+        fecha_inicio1 = st.date_input("Fecha inicio", value = fecha_min1,  min_value = fecha_min1, max_value = fecha_max1)
+        fecha_fin1 = st.date_input("Fecha fin", value = fecha_max1, min_value = fecha_min1, max_value = fecha_max1)
+
+        df1["Fecha"] = df1["Fecha"].apply(lambda x : datetime.strptime(x,"%Y-%m-%d").date())
+        precios= df1[(df1["Fecha"] >= fecha_inicio1) & (df1["Fecha"] <= fecha_fin1)]
+
+
+        fig25=px.line(data_frame = precios,
                     x = "Fecha",
                     y =  ["Predicciones"],  
                     title = "Predicción precios mercado eléctrico con Redes Neuronales")    
