@@ -16,8 +16,8 @@ from streamlit_lottie import st_lottie
 import requests
 
 #Cargamos DataFrames necesarios
-df_modelos_demanda = pd.read_csv('DF/Comparacion modelos demanda.csv')
-df_modelos_precios = pd.read_csv('DF/precios_plt_eda.csv')
+df_modelos_demanda = pd.read_csv('DF\Comparacion modelos demanda.csv')
+df_modelos_precios = pd.read_csv('DF\precios_plt_eda.csv')
 
 #Cargamos función Modelos creada en Modelos.py
 def Modelos():
