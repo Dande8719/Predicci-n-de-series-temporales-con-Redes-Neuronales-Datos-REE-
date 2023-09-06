@@ -10,7 +10,9 @@ def Autores():
     col9, col10,col11,col12 = st.columns([1, 1, 1, 1]) 
         #Autores:
     col1.subheader('EVA IGLESIAS') 
-    col1.image('Foto/Eva_Iglesias_foto.jpg',width=150)   
+    col1.image('Foto/Eva_Iglesias_foto.jpg',width=150)
+    # [<img src="URL_de_la_imagen" width="200" height="100">](URL_del_enlace)
+
     col3.markdown("[![Linkedin](<https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg>)](<https://www.linkedin.com/in/eva-iglesias-vieito-ingeniera-quimica/>)")   
     col4.markdown("[![GuitHub](<https://img.icons8.com/material-outlined/48/000000/github.png>)](<https://github.com/EvaIglesias17>)")
 

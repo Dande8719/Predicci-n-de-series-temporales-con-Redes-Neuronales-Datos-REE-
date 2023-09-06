@@ -25,8 +25,9 @@ def Modelos():
     #Título
     st.title('MODELOS DE PREDICCIÓN')
     #Texto
-    st.write('A Continuación seleccionamos entre las distintas variables a predecir para ver los resultados  \
-                  de los modelos que usamos para la predicción de las mismas.')
+    st.write('A continuación seleccionamos entre las distintas variables a predecir para ver los resultados  \
+                  de los modelos usados.\
+             De todos los datos estudiados en el EDA, solo vamos a trabajar con Demanda y Precios por que son con los que se obtienen mejores resultados')
     #Animación
     st_lottie(requests.get("https://lottie.host/de6e98d2-b4a7-45a7-b610-ddd71c68ba1f/GdIFdrWP8O.json").json(), height=250, key="Modelos")
     #Opciones selectbox
@@ -37,10 +38,11 @@ def Modelos():
         #Titulo
         st.title('DEMANDA')
         #Texto
-        st.write('Obtenemos los datos de demanda eléctrica nacional de la API de Red eléctrica de España, los \
-                 pasamos a GW/h y obtenemos una serie temporal de datos de 11 años de energía eléctrica \
-                 consumida en España con valores diarios. Aqui podemos ver la predición de valores futuros con distintos modelos, \
-                 Hagan click por favor en los botones que ven abajo para ver el resultado de los mismos')
+        st.write('A continuación se muestran todos los modelos aplicados al conjunto de \
+                datos de demanda energética nacional. En esta figura se pueden comparar las predicciones en el 2023 \
+                frente a los valores reales.\
+                 Debajo de la gráfica tenemos tres botones donde podemos selecciónar\
+                cada uno de los tres mejores modelos para verlos más en detalle.')
 
         #Imprimimos gráfico con todos los modelos.
         fig1=px.line(data_frame = df_modelos_demanda,

@@ -82,8 +82,10 @@ def main():
 
         st_lottie(requests.get("https://lottie.host/7f675139-8c7f-4cd0-93c0-0d1831dcfdc6/Kb96HXJOD7.json").json(), height=250, key="model")
         # Texto
-        st.write('<div style="text-align: justify;">  \
-                                 \
+        st.write('<div style="text-align: justify;"> El mejor modelo para ambos casos son las Redes Neuronales\
+                                 con unas métricas de r2 de 0,94 para el caso de la demanda y 0,92 en el caso de los precios. \
+                                    En este apartado puedes seleccionar en los filtros el rango de fechas que deses observar. \
+                                   \
                                 </div>', unsafe_allow_html=True) 
         
         
@@ -134,6 +136,12 @@ def main():
 
         st.plotly_chart(figure_or_data = fig25, use_container_width = True)
 
+        st.write('<div style="text-align: justify;"> Puedes consultar el código realizado para conseguir estos resultados en el siguiente enlace de githhub\
+                                 . \
+                                   \
+                                </div>', unsafe_allow_html=True) 
+        
+        st.markdown("[![GuitHub](<https://img.icons8.com/material-outlined/48/000000/github.png>)](<https://github.com/Dande8719/Predicci-n-de-series-temporales-con-Redes-Neuronales-Datos-REE->)")
 
     elif opcion == 'AUTORES':  
         Autores()

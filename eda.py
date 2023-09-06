@@ -1,9 +1,11 @@
+#Importamos librarias necesarias.
 import streamlit as st
 import plotly.express as px
 from streamlit_lottie import st_lottie
 import requests
 import pandas as pd
 
+#Cargamos la función con los parametros necesarios que serían los dataframes
 def eda(df_demanda_nacional,
         df_demanda_comunidades,
         df_precios,
@@ -13,9 +15,8 @@ def eda(df_demanda_nacional,
     st.title('ANALISIS EXPLORATORIO DE LOS DATOS')
 
     # Texto Sobre los distintos análisis exploratorios de los datos.
-    st.write('A continuación pueden escoger entre los distintos analisis exploratorios de datos \
-                empezando por la generación de energía a nivel nacional, emisiones, demanda y acabando \
-                por los precios de la energía')
+    st.write('A continuación, puedes escoger entre los distintos análisis exploratorios de datos: \
+                generación de energía a nivel nacional, emisiones, demanda o precio de la energía.')
     # Animación lottie
     st_lottie(requests.get("https://lottie.host/c16d2351-863a-48a7-b143-735071d01f92/JQ2hcUD9HM.json").json(), height=250, key="model")
 
@@ -26,12 +27,6 @@ def eda(df_demanda_nacional,
 
     if opcion == 'GENERACIÓN':
         st.title('EDA GENERACIÓN')
-
-        st.write('Mientras que la generación de energías renovables muestra una tendencia creciente con el \
-                    tiempo además de una serie temporal estacionalizada, la generación de energías no \
-                    renovables muestra una tendencia mínimamente decreciente, apuntando a ser casi \
-                    constante en el tiempo y siendo también una serie temporal estacionalizada, algo a tomar \
-                    en cuenta a la hora de realizar predicciones.') 
         
         # Preparamos los Filtros
         renovables = ['Hidráulica','Hidroeólica',
@@ -84,6 +79,21 @@ def eda(df_demanda_nacional,
                         y = generacion.columns[:],
                         title = "Evolución de la generación energética por tecnología")
                 st.plotly_chart(fig2)
+        
+        st.write('<div style="text-align: justify;"> La generación total no ha sufrido grandes cambios a lo largo de los años, aunque se \
+        aprecia esa pequeña bajada en el año 2020 debido a la pandemia y su posterior\
+        repunte.\
+        Centrándonos en las diferentes tecnologías se puede llegar a las siguientes conclusiones: \
+        Las energías eólica y nuclear se muestran bastante estables a lo largo de los años,\
+        siendo de los pilares más importantes a la hora de la obtención de energía.\
+        En su caso, la gran presencia de la energía eólica se debe al establecimiento de un marco regulatorio\
+        que se ha mantenido estable y a la mejora de la propia tecnología, reduciendo las inversiones\
+        iniciales, los costes de mantenimiento y los costes de explotación, aumentando también la\
+        construcción de numerosos parques eólicos.\
+        Por otro lado, cabe destacar el crecimiento de las centrales de ciclo combinado en detrimento de las centrales de carbón,\
+        esto se debe a que el ciclo combinado es la tecnología mas limpia (menos emisiones de CO2) de las no renovables. \
+        \
+           </div>', unsafe_allow_html=True)
 
 
     ################################################## EMISIONES ##############################################################    
@@ -91,9 +101,7 @@ def eda(df_demanda_nacional,
     if opcion == 'EMISIONES':
         st.title('EDA EMISIONES')
 
-        st.write('Observamos como las emisiones de CO2 descienden sobre todo a partir del año 2019 \
-                produciendose una gran reducción de emisiones entre el año 2019 y el 2021 y habiendo un pequeño repunte \
-                debido a la gerra de Ucrania y las repercusiones de esta sobra el mercado energético.')
+        
 
         fig3=px.bar(data_frame = df_emis_plt,
                     x          = "Años",
@@ -111,6 +119,15 @@ def eda(df_demanda_nacional,
 
         st.plotly_chart(figure_or_data = fig4, use_container_width = True)
 
+        
+
+        st.write('<div style="text-align: justify;"> Observamos como las emisiones de CO2 descienden sobre todo a partir del año 2019 \
+                produciendose una gran reducción de emisiones entre este año y el 2021, donde se produce un pequeño repunte \
+                debido a la gerra de Ucrania y las repercusiones de esta sobre el mercado energético.\
+                A partir de la representación de las emisiones de CO2 de las diferentes tecnologías, se pueden sacar principalmente 2 conclusiones: \
+                    El aumento en la generación energética a partir de las centrales de ciclo combinado, hace que esta tecnología se sitúe entre las más contaminantes pese a ser la energía no renovable más limpia y por otro lado, el repunte después de muchos años de descensos del uso del Carbón como fuente de energía.\
+           </div>', unsafe_allow_html=True)
+
     ################################################## DEMANDA ##############################################################
     if opcion == 'DEMANDA':
         st.title('EDA DEMANDA')
@@ -121,9 +138,7 @@ def eda(df_demanda_nacional,
         df_demanda_nacional=pd.DataFrame(df_demanda_nacional)
 
 
-        st.write('Obtenemos los datos de demanda eléctrica nacional de la API de Red eléctrica de España, los \
-                pasamos a GW/h y obtenemos una serie temporal de datos de 11 años de energía eléctrica \
-                consumida en España, valores diarios.')
+        
         from_ = st.slider('Desde', 2014, 2022, 2014, key = 'generación_from')
         to = st.slider('Hasta', from_, 2022, 2022, key = 'generación_to')
 
@@ -138,26 +153,28 @@ def eda(df_demanda_nacional,
 
         st.plotly_chart(figure_or_data = fig5, use_container_width = True)
 
-        st.write('Observamos que la demanda eléctrica en las distintas comunidades está muy relacionada con la población, \
-                las comunidades mas pobladas son las que mas energía demandan. (EJ: Andalucía, Cataluña y Madrid.) ')
+        st.write('Esta figura representa la demanda nacional anual en Megawatios/h durante los ultimos 11 años. \
+                Después de una mínima tendencia creciente hasta 2018, observamos en este año un punto de inflexión para continuar con una reducción de la misma en años posteriores.')
+
         
-        X1=dict(df_demanda_comunidades.sum()[2:]).values()    #¿¿¿Como ordeno esto???
-        #   st.write(X1)
-        fig6= px.bar(x=df_demanda_comunidades.columns[2:],
+        
+        X1=df_demanda_comunidades.sum()[2:].sort_values(ascending=False)
+               
+        #X1=X1.sort_values   #¿¿¿Como ordeno esto???
+        #st.write(df_demanda_comunidades.sum()[2:].sort_values(ascending=False))
+        fig6= px.bar(x=X1.index,
                       y=X1, 
                       title='Demanda electrica por comunidades')
         st.plotly_chart(fig6)
+
+        st.write('Observamos que la demanda eléctrica en las distintas comunidades está muy relacionada con la población, \
+                las comunidades mas pobladas son las que mas energía demandan. (EJ: Andalucía, Cataluña y Madrid.) ')
 
     ################################################## PRECIOS ##############################################################    
     if opcion == 'PRECIOS':
         st.title('EDA PRECIOS')
 
-        st.write('Observamos que, debido a los valores anomarlmente elevados que se dieron durante \
-                los años 2022 y parte de 2021 y 2023, la distribución de los datos se ve notablemente \
-                afectada y representa un problema conocido en estadística como "cola pesada", que se \
-                da cuando valores de baja densidad (muy rara frecuencia) no son exponencialmente raros. \
-                    Esto puede afectar negativamente a los modelos y, especialmente, a la estandarización de \
-                los datos, pues altera enormemente la media y la desviación típica.')
+        
         
         # Graficamos la serie temporal de precios
         fig7 = px.line(df_precios, x = 'Meses',
@@ -165,6 +182,12 @@ def eda(df_demanda_nacional,
                           title="Precios en €/Mwh") 
         st.plotly_chart(fig7)
 
+        st.write('Observamos que, debido a los valores anomarlmente elevados que se dieron durante \
+                los años 2022 y parte de 2021 y 2023, la distribución de los datos se ve notablemente \
+                afectada y representa un problema conocido en estadística como "cola pesada", que se \
+                da cuando valores de baja densidad (muy rara frecuencia) no son exponencialmente raros. \
+                    Esto puede afectar negativamente a los modelos y, especialmente, a la estandarización de \
+                los datos, pues altera enormemente la media y la desviación típica.')
     
 
 if __name__ == "__eda__":
