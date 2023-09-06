@@ -17,15 +17,15 @@ from Autores import Autores
 # Cargamos los DataFrames necesarios para el proyecto. Tengo todos los del EDA.
 
 
-df_precios = pd.read_csv("DF\Precios por mes.csv")
-df_demanda_nacional = pd.read_csv('DF\demanda_nacional.csv')
-df_demanda_comunidades = pd.read_csv('DF\demanda_comunidades.csv')
-df_intercambio= pd.read_csv('DF\intercambio.csv')
-df_ipc = pd.read_excel("DF\IPC energía - Eurostat.xlsx", sheet_name = "Sheet 2")
-df_emis_plt = pd.read_csv('DF\emis_plt_eda.csv')
-df_gen_plt_eda = pd.read_csv('DF\gen_plt_eda.csv')
-df_pred_dem= pd.read_csv('DF\Prediccion Demanda Nacional - 1 step.csv')
-df_pred_prec=pd.read_csv('DF\Predicciones a futuro de precios (abril 2023 a agosto 2024).csv')
+df_precios = pd.read_csv("DF/Precios por mes.csv")
+df_demanda_nacional = pd.read_csv('DF/demanda_nacional.csv')
+df_demanda_comunidades = pd.read_csv('DF/demanda_comunidades.csv')
+df_intercambio= pd.read_csv('DF/intercambio.csv')
+df_ipc = pd.read_excel("DF/IPC energía - Eurostat.xlsx", sheet_name = "Sheet 2")
+df_emis_plt = pd.read_csv('DF/emis_plt_eda.csv')
+df_gen_plt_eda = pd.read_csv('DF/gen_plt_eda.csv')
+df_pred_dem= pd.read_csv('DF/Prediccion Demanda Nacional - 1 step.csv')
+df_pred_prec=pd.read_csv('DF/Predicciones a futuro de precios (abril 2023 a agosto 2024).csv')
 
 
 
