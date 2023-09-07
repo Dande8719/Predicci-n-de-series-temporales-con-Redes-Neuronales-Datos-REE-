@@ -23,11 +23,12 @@ df_modelos_precios = pd.read_csv('DF/precios_plt_eda.csv')
 def Modelos():
 
     #Título
-    st.title('MODELOS DE PREDICCIÓN')
+    st.markdown('<h1 style="font-size: 40px; text-align: justify;">MODELOS DE PREDICCIÓN</h1>', unsafe_allow_html=True)
     #Texto
-    st.write('A continuación seleccionamos entre las distintas variables a predecir para ver los resultados  \
-                  de los modelos usados.\
-             De todos los datos estudiados en el EDA, solo vamos a trabajar con Demanda y Precios por que son con los que se obtienen mejores resultados')
+    st.write('<div style="text-align: justify;"> A continuación seleccionamos entre las distintas variables a predecir\
+              para ver los resultados de los modelos usados. De todos los datos estudiados en el EDA, solo vamos a trabajar\
+              con Demanda y Precios por que son con los que se obtienen mejores resultados\
+                </div>', unsafe_allow_html=True)
     #Animación
     st_lottie(requests.get("https://lottie.host/de6e98d2-b4a7-45a7-b610-ddd71c68ba1f/GdIFdrWP8O.json").json(), height=250, key="Modelos")
     #Opciones selectbox
@@ -38,18 +39,18 @@ def Modelos():
         #Titulo
         st.title('DEMANDA')
         #Texto
-        st.write('A continuación se muestran todos los modelos aplicados al conjunto de \
+        st.write('<div style="text-align: justify;">A continuación se muestran todos los modelos aplicados al conjunto de \
                 datos de demanda energética nacional. En esta figura se pueden comparar las predicciones en el 2023 \
                 frente a los valores reales.\
                  Debajo de la gráfica tenemos tres botones donde podemos selecciónar\
-                cada uno de los tres mejores modelos para verlos más en detalle.')
+                cada uno de los tres mejores modelos para verlos más en detalle.</div>', unsafe_allow_html=True)
 
         #Imprimimos gráfico con todos los modelos.
         fig1=px.line(data_frame = df_modelos_demanda,
               x = "Fechas",
               y =  df_modelos_demanda.columns[1:],
               title = "Comparación modelos de predicción")    
-
+        fig1.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
         st.plotly_chart(figure_or_data = fig1, use_container_width = True)
 
         #Creamos estructura de columnas para los botones.
@@ -63,7 +64,7 @@ def Modelos():
                     x = "Fechas",
                     y =  df_modelos_demanda.columns[1:3],
                     title = "Comparación modelos Prophet con Test")    
-
+                fig2.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
                 st.plotly_chart(figure_or_data = fig2, use_container_width = True)
                 st.image('Foto/Predicciones Demanda Nacional - Prophet.png')
 
@@ -81,7 +82,7 @@ def Modelos():
                     x = "Fechas",
                     y =  df_modelos_demanda.columns[2:4],
                     title = "Comparación modelo Redes Neuronales")    
-
+                fig3.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
                 st.plotly_chart(figure_or_data = fig3, use_container_width = True)
 
                 
@@ -99,7 +100,7 @@ def Modelos():
                     x = "Fechas",
                     y =  ["Test","Skforecast Exogenas"],  
                     title = "Comparación modelo SKForecast")    
-
+                fig4.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
                 st.plotly_chart(figure_or_data = fig4, use_container_width = True)
 
                 # Conclusiones SKForecast
@@ -123,7 +124,7 @@ def Modelos():
             x = 'Fechas',
             y = ['Red Neuronal', 'Precios', 'XGBoost', 'ARIMA'],
             title = 'Comparación entre los principales modelos de predicción de precios')
-        
+        fig5.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
         st.plotly_chart(figure_or_data = fig5, use_container_width = True)
 
         

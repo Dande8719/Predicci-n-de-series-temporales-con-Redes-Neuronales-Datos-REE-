@@ -78,7 +78,7 @@ def main():
     ################################################################################################
     
     elif opcion == 'RESULTADOS Y CONCLUSIONES':
-        st.title('RESULTADOS Y CONCLUSIONES') 
+        st.markdown('<h1 style="font-size: 40px; text-align: justify;">RESULTADOS Y CONCLUSIONES</h1>', unsafe_allow_html=True) 
 
         st_lottie(requests.get("https://lottie.host/7f675139-8c7f-4cd0-93c0-0d1831dcfdc6/Kb96HXJOD7.json").json(), height=250, key="model")
         # Texto
@@ -109,8 +109,9 @@ def main():
         # Demanda
         fig24=px.line(data_frame = demanda ,
                     x = "Fechas",
-                    y =  ["Predicciones"],  
-                    title = "Predicción demanda energética nacional Redes Neuronales")    
+                    y =  "Predicciones",  
+                    title = "Predicción demanda energética nacional Redes Neuronales",
+                    labels={"Fechas": "Ultimo año", "Predicciones": "Mw/h"})     
 
         st.plotly_chart(figure_or_data = fig24, use_container_width = True)
 
@@ -129,10 +130,11 @@ def main():
         precios= df1[(df1["Fecha"] >= fecha_inicio1) & (df1["Fecha"] <= fecha_fin1)]
 
 
-        fig25=px.line(data_frame = precios,
+        fig25 = px.line(data_frame = precios,
                     x = "Fecha",
-                    y =  ["Predicciones"],  
-                    title = "Predicción precios mercado eléctrico con Redes Neuronales")    
+                    y =  "Predicciones",  
+                    title = "Predicción precios mercado eléctrico con Redes Neuronales",
+                    labels={"Fecha": "Ultimo año", "Predicciones": "€/Mw/h"})    
 
         st.plotly_chart(figure_or_data = fig25, use_container_width = True)
 

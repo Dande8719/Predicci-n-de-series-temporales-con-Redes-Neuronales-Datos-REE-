@@ -4,11 +4,9 @@ import requests
 
 def introduccion():
 
-    #st.title('INTRODUCCIÓN')
-    # Definimos un tÍtulo y subtítulo general para la página.
-    st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES")
-    st.markdown("##### Estudio de los datos de la red electrica española para la obtención de modelos de predicción")
-
+    #st.header("MODELOS DE PREDICCIÓN DE SERIES TEMPORALES")
+    st.markdown('<h1 style="font-size: 40px; text-align: justify;">MODELOS DE PREDICCIÓN DE SERIES TEMPORALES</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 style="font-size: 20px; text-align: justify;">Estudio de los datos de la red eléctrica española para la obtención de modelos de predicción. </h1>', unsafe_allow_html=True)
     
     st_lottie(requests.get("https://lottie.host/8aa6eb40-cc19-4c8a-82e8-65abc765569a/VlL8VDrMsa.json").json(), height=250, key="Into1")
     

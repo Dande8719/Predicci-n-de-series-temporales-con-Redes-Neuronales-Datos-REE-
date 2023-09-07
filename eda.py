@@ -12,11 +12,13 @@ def eda(df_demanda_nacional,
         df_emis_plt,
         df_gen_plt_eda):
     
-    st.title('ANALISIS EXPLORATORIO DE LOS DATOS')
+    st.markdown('<h1 style="font-size: 40px; text-align: justify;">ANALISIS EXPLORATORIO DE LOS DATOS</h1>', unsafe_allow_html=True)
 
     # Texto Sobre los distintos análisis exploratorios de los datos.
-    st.write('A continuación, puedes escoger entre los distintos análisis exploratorios de datos: \
-                generación de energía a nivel nacional, emisiones, demanda o precio de la energía.')
+    st.write('<div style="text-align: justify;"> A continuación, puedes escoger entre los distintos análisis exploratorios\
+              de datos: generación de energía a nivel nacional, emisiones, demanda o precio de la energía.\
+                </div>', unsafe_allow_html=True)
+
     # Animación lottie
     st_lottie(requests.get("https://lottie.host/c16d2351-863a-48a7-b143-735071d01f92/JQ2hcUD9HM.json").json(), height=250, key="model")
 
@@ -68,7 +70,10 @@ def eda(df_demanda_nacional,
                 fig=px.bar(data_frame = generacion,
                 x          = "Años",
                 y          = generacion.columns[:],
-                title      ="Evolución de la generación energética por tecnología, Gráfico de barras")
+                title      ="Evolución de la generación energética por tecnología, Gráfico de barras"
+                )
+
+                fig.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
 
                 st.plotly_chart(figure_or_data = fig, use_container_width = True)
         
@@ -78,6 +83,7 @@ def eda(df_demanda_nacional,
                         x = "Años",
                         y = generacion.columns[:],
                         title = "Evolución de la generación energética por tecnología")
+                fig2.update_layout(xaxis_title = "Fecha", yaxis_title = "Gw/h")
                 st.plotly_chart(fig2)
         
         st.write('<div style="text-align: justify;"> La generación total no ha sufrido grandes cambios a lo largo de los años, aunque se \
@@ -107,7 +113,8 @@ def eda(df_demanda_nacional,
                     x          = "Años",
                     y          = df_emis_plt.columns[1:-2],
                     title = "Emisiones de CO2")
-    
+        
+        fig3.update_layout(xaxis_title = "Fecha", yaxis_title = "tCO2 eq./Mwh")
         st.plotly_chart(figure_or_data = fig3, use_container_width = True)
 
 
@@ -150,7 +157,7 @@ def eda(df_demanda_nacional,
                 x          = "Fecha",
                 y          = generacion.columns[1:],
                 title      ="")
-
+        fig5.update_layout(xaxis_title = "Fecha", yaxis_title = "Mw/h")
         st.plotly_chart(figure_or_data = fig5, use_container_width = True)
 
         st.write('Esta figura representa la demanda nacional anual en Megawatios/h durante los ultimos 11 años. \
@@ -165,6 +172,7 @@ def eda(df_demanda_nacional,
         fig6= px.bar(x=X1.index,
                       y=X1, 
                       title='Demanda electrica por comunidades')
+        fig6.update_layout(xaxis_title = "Comunidades Autónomas", yaxis_title = "Mw/h")
         st.plotly_chart(fig6)
 
         st.write('Observamos que la demanda eléctrica en las distintas comunidades está muy relacionada con la población, \
@@ -182,12 +190,7 @@ def eda(df_demanda_nacional,
                           title="Precios en €/Mwh") 
         st.plotly_chart(fig7)
 
-        st.write('Observamos que, debido a los valores anomarlmente elevados que se dieron durante \
-                los años 2022 y parte de 2021 y 2023, la distribución de los datos se ve notablemente \
-                afectada y representa un problema conocido en estadística como "cola pesada", que se \
-                da cuando valores de baja densidad (muy rara frecuencia) no son exponencialmente raros. \
-                    Esto puede afectar negativamente a los modelos y, especialmente, a la estandarización de \
-                los datos, pues altera enormemente la media y la desviación típica.')
+        
     
 
 if __name__ == "__eda__":
