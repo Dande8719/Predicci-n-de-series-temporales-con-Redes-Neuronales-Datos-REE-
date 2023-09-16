@@ -1,4 +1,4 @@
-Fechas,Prophet,Test,1 Step,Multiple Step,Arima,Sarima,Pycaret,Skforecast,Skforecast Exogenas,Fast Forward
+Fechas,Prophet,Test,1 Step,Multiple Step,Arima,Sarima,Pycaret,Skforecast,Skforecast Exogenas,Fit Forward
 2023-01-01,563.41,501.61,527.16,527.16,526.77,514.89,522.05,543.3,543.92,566.88
 2023-01-02,675.06,617.39,590.93,605.67,561.85,555.4,614.72,626.22,624.27,558.38
 2023-01-03,699.07,672.48,656.82,619.82,597.57,591.55,636.18,684.74,688.4,669.1
